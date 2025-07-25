@@ -115,11 +115,10 @@ def parse_alpha_sense_pdf_to_documents(pdf_path):
 # --- Caching for expensive operations ---
 @st.cache_resource
 def load_embedding_model(model_name_or_path_segment):
-    st.info(f"Attempting to load embedding model: {model_name_or_path_segment}...")
     local_model_full_path = os.path.join(MODEL_DIR, model_name_or_path_segment)
     model_to_load_from = local_model_full_path if os.path.isdir(local_model_full_path) else model_name_or_path_segment
     try:
-        if model_to_load_from == local_model_full_path: st.info(f"Found local embedding model: {local_model_full_path}")
+        if model_to_load_from == local_model_full_path: pass
         else: st.warning(f"Local path {local_model_full_path} not found. Attempting to load '{model_name_or_path_segment}' (may need internet).")
         embeddings = SentenceTransformerEmbeddings(model_name=model_to_load_from, model_kwargs={'device': 'cpu'})
         st.success(f"Embedding model '{model_name_or_path_segment}' loaded.")
@@ -172,7 +171,6 @@ def load_llm(model_file, n_gpu_layers, n_ctx):
     if not os.path.exists(llm_path):
         st.error(f"LLM file not found at {llm_path}")
         return None
-    st.info(f"Loading LLM from: {llm_path} with n_gpu_layers={n_gpu_layers}, n_ctx={n_ctx}...")
     try:
         llm = LlamaCpp(
             model_path=llm_path,
@@ -245,7 +243,6 @@ llm = load_llm(LLM_MODEL_FILE, N_GPU_LAYERS, N_CTX)
 
 # --- Sidebar ---
 st.sidebar.header("Knowledge Base Setup")
-st.sidebar.info(f"Transcripts will be loaded from: '{TRANSCRIPTS_DIR}/'")
 if not os.path.exists(TRANSCRIPTS_DIR):
     os.makedirs(TRANSCRIPTS_DIR)
     st.sidebar.warning(f"Created directory: {TRANSCRIPTS_DIR}. Please add PDF files and click 'Load/Refresh'.")
