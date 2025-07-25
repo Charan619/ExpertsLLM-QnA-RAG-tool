@@ -1,5 +1,8 @@
 # RAG-QA-tool README
 
+<img width="1885" height="1004" alt="image" src="https://github.com/user-attachments/assets/4cb8f502-70a4-452a-b802-f078806a032f" />
+
+
 ## RAG Expert Q&A Tool Setup Instructions
 
 ### Prerequisites:
@@ -42,3 +45,4 @@
         *   **macOS:** Clang (usually installed via XCode Command Line Tools: `xcode-select --install`).
     *   For **GPU support (NVIDIA)**, the CUDA toolkit must be installed and configured correctly. This is an advanced setup not covered by the basic installation. This package is configured for CPU by default (or minimal GPU offload if `llama-cpp-python` detects a compatible GPU and your `N_GPU_LAYERS` setting in `app.py` is > 0).
 *   Ensure your PDF transcripts are placed in the `expert_call_transcripts` folder within the main `RAG_Expert_QA_Tool` directory.
+
